@@ -64,5 +64,4 @@ func main() {
 		}
 		fmt.Println("Für diese Mitarbeiter konnten keine Austrucke erstellt werden!")
 	}
-
 }

@@ -8,7 +8,10 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 )
+
+const LOHN_ART = "0580"
 
 type SQLDB struct {
 	db *sql.DB
@@ -108,6 +111,7 @@ func (s *SQLDB) CreateAllPDF(outputDir *string) error {
 	if err != nil {
 		log.Fatal(err)
 	}
+	var csvData string = "Personalnummer;EUR-Gesamtbetrag;Lohnart"
 	os.Mkdir(*outputDir, 0770)
 	defer row.Close()
 	for row.Next() {
@@ -115,6 +119,8 @@ func (s *SQLDB) CreateAllPDF(outputDir *string) error {
 		var summe int
 		row.Scan(&pdfData.Vorname, &pdfData.Nachname, &pdfData.Personalnummer, &pdfData.Kartennummer, &summe)
 		pdfData.BruttoSumme = float64(summe) / 100
+		csvData = fmt.Sprintf("%s\r\n%s;%s;%s", csvData, pdfData.Personalnummer,
+			strings.Replace(fmt.Sprintf("%.2f", pdfData.BruttoSumme), ".", ",", 1), LOHN_ART)
 		if len(pdfData.Personalnummer) == 8 {
 			pdfData.Lines, err = s.GetSingleLines(pdfData.Personalnummer)
 			if err != nil {
@@ -135,6 +141,10 @@ func (s *SQLDB) CreateAllPDF(outputDir *string) error {
 				return err
 			}
 		}
+	}
+	err = ioutil.WriteFile(fmt.Sprintf("%s/tankabr%s.csv", *outputDir, *outputDir), []byte(csvData), 0660)
+	if err != nil {
+		return err
 	}
 	return nil
 }
