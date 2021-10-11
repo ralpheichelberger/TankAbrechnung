@@ -76,7 +76,7 @@ func (m *MEMDB) CreateAllPDF(outputDir *string) error {
 			}
 		}
 	}
-	err := ioutil.WriteFile(fmt.Sprintf("%s/tankabr%s.csv", *outputDir, *outputDir), []byte(csvData), 0660)
+	err := ioutil.WriteFile(fmt.Sprintf("%s/tankabr.csv", *outputDir), []byte(csvData), 0660)
 	if err != nil {
 		return err
 	}
