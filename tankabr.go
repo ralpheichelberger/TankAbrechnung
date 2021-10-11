@@ -67,7 +67,7 @@ func (m *MEMDB) LoadTankabrDB(inputFileTankAbr *string) error {
 	lines := strings.Split(string(data), "\r\n")
 	// var dataLines []ALine = []ALine{}
 	for n, line := range lines {
-		if n > 0 {
+		if n > 0 && n < len(lines)-2 {
 			aLine, err := extractFields(line)
 			if err != nil {
 				return err
