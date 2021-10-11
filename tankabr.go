@@ -70,7 +70,7 @@ func (m *MEMDB) LoadTankabrDB(inputFileTankAbr *string) error {
 		if n > 0 {
 			aLine, err := extractFields(line)
 			if err != nil {
-				//fmt.Printf("error parsing '%s'\n", line)
+				return err
 			} else {
 				// dataLines = append(dataLines, aLine)
 				m.InsertTankAbrLine(
