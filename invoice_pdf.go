@@ -49,7 +49,7 @@ func CreateInvoice(b PDFData) (gofpdf.Pdf, error) {
 	pdf.SetFont("dejavu", "B", fsa)
 	pdf.CellFormat(30, h, fmt.Sprintf("%s %s", b.Vorname, b.Nachname), "", 1, "L", false, 0, "")
 	pdf.SetFont("dejavu", "", fsa)
-	pdf.CellFormat(10, h, fmt.Sprintf("Perso.Nr: %s", b.Personalnummer), "", 1, "L", false, 0, "")
+	pdf.CellFormat(10, h, fmt.Sprintf("Perso.Nr: %d", b.Personalnummer), "", 1, "L", false, 0, "")
 	pdf.CellFormat(10, h, fmt.Sprintf("KartenNr: %s", b.Kartennummer), "", 1, "L", false, 0, "")
 
 	pdf.SetXY(16, 90)

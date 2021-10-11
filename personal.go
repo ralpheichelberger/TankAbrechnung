@@ -6,6 +6,8 @@ import (
 	"strings"
 )
 
+const LOHN_ART = "0580"
+
 func (p *Personal) loadPersonal(line string) error {
 	if len(line) < 9 {
 		return fmt.Errorf("personal CSV has wrong fromat")
@@ -20,7 +22,7 @@ func (p *Personal) loadPersonal(line string) error {
 	return nil
 }
 
-func (db SQLDB) LoadPersonalDB(inputFielPersonal *string) error {
+func (m *MEMDB) LoadPersonalDB(inputFielPersonal *string) error {
 	data, err := ioutil.ReadFile(*inputFilePersonal)
 	if err != nil {
 		return err
@@ -33,7 +35,7 @@ func (db SQLDB) LoadPersonalDB(inputFielPersonal *string) error {
 			if err != nil {
 				break
 			}
-			db.insertPersonal(p.Personalnummer, p.Vorname, p.Nachname)
+			m.InsertPersonal(p.Personalnummer, p.Vorname, p.Nachname)
 		}
 	}
 	return nil

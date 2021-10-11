@@ -59,7 +59,7 @@ func extractFields(line string) (ALine, error) {
 	return aLine, err
 }
 
-func (s *SQLDB) LoadTankabrDB(inputFileTankAbr *string) error {
+func (m *MEMDB) LoadTankabrDB(inputFileTankAbr *string) error {
 	data, err := ioutil.ReadFile(*inputFileTankAbr)
 	if err != nil {
 		return err
@@ -73,7 +73,7 @@ func (s *SQLDB) LoadTankabrDB(inputFileTankAbr *string) error {
 				//fmt.Printf("error parsing '%s'\n", line)
 			} else {
 				// dataLines = append(dataLines, aLine)
-				s.insertTankAbrLine(
+				m.InsertTankAbrLine(
 					aLine.Kartennummer,
 					aLine.Personalnummer,
 					aLine.Belegnummer,
