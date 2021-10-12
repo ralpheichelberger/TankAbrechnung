@@ -72,7 +72,11 @@ func (m *MEMDB) LoadTankabrDB(inputFileTankAbr *string) error {
 			if err != nil {
 				return err
 			} else {
-				// dataLines = append(dataLines, aLine)
+				if aLine.Waerung1 != aLine.Waerung2 {
+					aLine.Gesamt = aLine.EURBrutto
+					aLine.Rabatt = 0
+					aLine.EPreis = 0
+				}
 				m.InsertTankAbrLine(
 					aLine.Kartennummer,
 					aLine.Personalnummer,

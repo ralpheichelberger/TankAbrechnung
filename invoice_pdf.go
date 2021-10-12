@@ -81,6 +81,9 @@ func CreateInvoice(b PDFData) (gofpdf.Pdf, error) {
 		if len(ort) > ortL {
 			ort = ort[:ortL]
 		}
+		if l.EPreis == 0 {
+			l.EPreis = l.Gesamt / l.Menge * 1000
+		}
 		pdf.CellFormat(w.o, h, ort, "", 0, "L", false, 0, "")
 		pdf.CellFormat(w.b, h, l.Belegnummer, "", 0, "L", false, 0, "")
 		pdf.CellFormat(w.m, h, fmt.Sprintf("%.2f", l.Menge/100), "", 0, "R", false, 0, "")
