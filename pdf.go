@@ -17,7 +17,8 @@ type SingleLine struct {
 	Ort string
 	Menge,
 	EPreis,
-	EURBrutto float64
+	Rabatt,
+	Gesamt float64
 }
 
 type PDFData struct {
@@ -44,9 +45,10 @@ func (m *MEMDB) CreateAllPDF(outputDir *string) error {
 				Ort:         zeile.Ort,
 				Menge:       float64(zeile.Menge),
 				EPreis:      float64(zeile.EPreis),
-				EURBrutto:   float64(zeile.EURBrutto),
+				Rabatt:      float64(zeile.Rabatt),
+				Gesamt:      float64(zeile.Gesamt),
 			})
-			summe += zeile.EURBrutto
+			summe += zeile.Gesamt
 		}
 		bruttoSumme := float64(summe) / 100
 		var pdfData PDFData = PDFData{
